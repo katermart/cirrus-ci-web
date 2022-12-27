@@ -263,10 +263,27 @@ const BuildRow = styled(
           <Typography className={classes.commitName} title={build.changeMessageTitle}>
             {build.changeMessageTitle}
           </Typography>
-          <Stack className={classes.hash} direction="row" alignItems="center" spacing={0.5}>
+          {/* HASH */}
+          <Chip
+            label={build.changeIdInRepo.substr(0, 7)}
+            variant="filled"
+            color="default"
+            size="small"
+            icon={<CommitIcon />}
+            clickable
+            sx={{
+              '& .MuiChip-iconSmall': {
+                marginLeft: '5px',
+              },
+              fontFamily: 'Courier',
+              marginTop: 1,
+            }}
+          />
+
+          {/* <Stack className={classes.hash} direction="row" alignItems="center" spacing={0.5}>
             <CommitIcon fontSize="inherit" />
             <span>{build.changeIdInRepo.substr(0, 7)}</span>
-          </Stack>
+          </Stack> */}
         </TableCell>
 
         {/* BRANCH */}
