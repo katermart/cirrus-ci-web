@@ -38,6 +38,7 @@ import { BuildsTable_builds } from './__generated__/BuildsTable_builds.graphql';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
 import Chip from '@mui/material/Chip';
+import { FormatUnderlined } from '@mui/icons-material';
 
 // todo: move custom values to mui theme adjustments
 const styles = theme =>
@@ -264,21 +265,24 @@ const BuildRow = styled(
             {build.changeMessageTitle}
           </Typography>
           {/* HASH */}
-          <Chip
-            label={build.changeIdInRepo.substr(0, 7)}
-            variant="filled"
-            color="default"
-            size="small"
-            icon={<CommitIcon />}
-            clickable
-            sx={{
-              '& .MuiChip-iconSmall': {
-                marginLeft: '5px',
-              },
-              fontFamily: 'Courier',
-              marginTop: 1,
-            }}
-          />
+          <Tooltip title="Click to copy">
+            <Chip
+              label={build.changeIdInRepo.substr(0, 7)}
+              variant="filled"
+              color="default"
+              size="small"
+              icon={<CommitIcon />}
+              clickable
+              title="click to copy"
+              sx={{
+                '& .MuiChip-iconSmall': {
+                  marginLeft: '5px',
+                },
+                fontFamily: 'Courier',
+                marginTop: 1,
+              }}
+            />
+          </Tooltip>
 
           {/* <Stack className={classes.hash} direction="row" alignItems="center" spacing={0.5}>
             <CommitIcon fontSize="inherit" />
