@@ -171,7 +171,7 @@ const HeadRow = styled(({ classes }: HeadRowProps) => {
       <TableCell className={cx(classes.cell, classes.cellStatus)}>Status</TableCell>
       <TableCell className={cx(classes.cell, classes.cellRepository)}>Repository</TableCell>
       <TableCell className={cx(classes.cell, classes.cellCommit)}>Commit</TableCell>
-      {/* <TableCell className={cx(classes.cell, classes.cellBranch)}>Branch</TableCell> */}
+      <TableCell className={cx(classes.cell, classes.cellBranch)}>Branch</TableCell>
       <TableCell className={cx(classes.cell, classes.cellDuration)}>
         <Stack direction="row" alignItems="center" justifyContent="end" spacing={0.5}>
           <Tooltip title={durationTooltipText}>
@@ -264,45 +264,47 @@ const BuildRow = styled(
           <Typography className={classes.commitName} title={build.changeMessageTitle}>
             {build.changeMessageTitle}
           </Typography>
-          <Stack direction="row" alignItems="center" spacing={1} marginTop={1}>
-            {/* HASH*/}
-            <Tooltip title="Click to copy">
-              <Chip
-                label={build.changeIdInRepo.substr(0, 7)}
-                variant="filled"
-                color="default"
-                size="small"
-                icon={<CommitIcon />}
-                clickable
-                title="click to copy"
-                sx={{
-                  '& .MuiChip-iconSmall': {
-                    marginLeft: '5px',
-                  },
-                  fontFamily: 'Courier',
-                }}
-              />
-            </Tooltip>
-            {/* BRANCH */}
+          {/* HASH */}
+          <Tooltip title="Click to copy">
             <Chip
-              label={shorten(build.branch)}
+              label={build.changeIdInRepo.substr(0, 7)}
               variant="filled"
               color="default"
               size="small"
-              icon={<CallSplitIcon />}
+              icon={<CommitIcon />}
               clickable
+              title="click to copy"
               sx={{
                 '& .MuiChip-iconSmall': {
                   marginLeft: '5px',
                 },
+                fontFamily: 'Courier',
+                marginTop: 1,
               }}
             />
-          </Stack>
+          </Tooltip>
 
           {/* <Stack className={classes.hash} direction="row" alignItems="center" spacing={0.5}>
             <CommitIcon fontSize="inherit" />
             <span>{build.changeIdInRepo.substr(0, 7)}</span>
           </Stack> */}
+        </TableCell>
+
+        {/* BRANCH */}
+        <TableCell className={cx(classes.cell, classes.cellBranch)}>
+          <Chip
+            label={shorten(build.branch)}
+            variant="filled"
+            color="default"
+            size="small"
+            icon={<CallSplitIcon />}
+            clickable
+            sx={{
+              '& .MuiChip-iconSmall': {
+                marginLeft: '5px',
+              },
+            }}
+          />
 
           {/* <Stack direction="row" alignItems="center" spacing={0.5}>
             <CallSplitIcon fontSize="inherit" />
