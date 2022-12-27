@@ -37,6 +37,8 @@ import { BuildsTable_builds } from './__generated__/BuildsTable_builds.graphql';
 
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
+import Chip from '@mui/material/Chip';
+
 // todo: move custom values to mui theme adjustments
 const styles = theme =>
   createStyles({
@@ -269,7 +271,21 @@ const BuildRow = styled(
 
         {/* BRANCH */}
         <TableCell className={cx(classes.cell, classes.cellBranch)}>
-          <Stack direction="row" alignItems="center" spacing={0.5}>
+          <Chip
+            label={shorten(build.branch)}
+            variant="filled"
+            color="default"
+            size="small"
+            icon={<CallSplitIcon />}
+            clickable
+            sx={{
+              '& .MuiChip-iconSmall': {
+                marginLeft: '5px',
+              },
+            }}
+          />
+
+          {/* <Stack direction="row" alignItems="center" spacing={0.5}>
             <CallSplitIcon fontSize="inherit" />
             <Link
               href={absoluteLink(
@@ -284,7 +300,7 @@ const BuildRow = styled(
             >
               {shorten(build.branch)}
             </Link>
-          </Stack>
+          </Stack> */}
         </TableCell>
 
         {/* DURATION */}
