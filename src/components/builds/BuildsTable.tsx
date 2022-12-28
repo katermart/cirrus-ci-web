@@ -38,7 +38,7 @@ import { BuildsTable_builds } from './__generated__/BuildsTable_builds.graphql';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
 import Chip from '@mui/material/Chip';
-import { FormatUnderlined } from '@mui/icons-material';
+import { FormatUnderlined, HeightSharp } from '@mui/icons-material';
 
 // todo: move custom values to mui theme adjustments
 const styles = theme =>
@@ -240,10 +240,23 @@ const BuildRow = styled(
         <TableCell className={cx(classes.cell, classes.cellStatus, classes.cellStatusChip)}>
           <BuildStatusChipNew status={build.status} />
         </TableCell>
-
         {/* REPOSITORY */}
         <TableCell className={cx(classes.cell, classes.cellRepository)}>
-          <Stack direction="row" alignItems="center" spacing={0.5}>
+          <Chip
+            label={`${build.repository.name}`}
+            variant="filled"
+            color="default"
+            size="small"
+            icon={<BookOutlinedIcon />}
+            clickable
+            sx={{
+              '& .MuiChip-iconSmall': {
+                marginLeft: '5px',
+              },
+            }}
+          />
+
+          {/* <Stack direction="row" alignItems="center" spacing={0.5}>
             <BookOutlinedIcon fontSize="inherit" />
             <Link
               href={absoluteLink(build.repository.platform, build.repository.owner, build.repository.name)}
@@ -256,9 +269,8 @@ const BuildRow = styled(
           </Stack>
           <Typography noWrap color={theme.palette.text.secondary} title={build.repository.owner}>
             by {build.repository.owner}
-          </Typography>
+          </Typography> */}
         </TableCell>
-
         {/* COMMIT */}
         <TableCell className={cx(classes.cell, classes.cellCommit)}>
           <Typography className={classes.commitName} title={build.changeMessageTitle}>
@@ -289,7 +301,6 @@ const BuildRow = styled(
             <span>{build.changeIdInRepo.substr(0, 7)}</span>
           </Stack> */}
         </TableCell>
-
         {/* BRANCH */}
         <TableCell className={cx(classes.cell, classes.cellBranch)}>
           <Chip
@@ -323,7 +334,6 @@ const BuildRow = styled(
             </Link>
           </Stack> */}
         </TableCell>
-
         {/* DURATION */}
         <TableCell className={cx(classes.cell, classes.cellDuration)}>
           {build.clockDurationInSeconds ? formatDuration(build.clockDurationInSeconds) : '—'}
