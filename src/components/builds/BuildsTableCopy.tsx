@@ -43,17 +43,18 @@ import { FormatUnderlined, HeightSharp } from '@mui/icons-material';
 // todo: move custom values to mui theme adjustments
 const styles = theme =>
   createStyles({
-    table: {
-      tableLayout: 'auto',
-    },
     row: {
+      display: 'flex',
+      padding: '16px',
+      alignItems: 'center',
+      // justifyContent: 'space-between',
       height: 82,
       cursor: 'pointer',
-      '&.Mui-selected': {
-        background: `${
-          theme.palette.mode === 'dark' ? theme.palette.grey['800'] : theme.palette.grey['100']
-        } !important`,
-      },
+      background: theme.palette.background.paper,
+      // border: '1px solid #00000014',
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px',
+      borderRadius: '6px',
+      margin: '4px 0',
     },
     cell: {
       fontSize: 16,
@@ -136,48 +137,24 @@ const BuildsTable = styled(({ classes, builds = [], selectedBuildId, setSelected
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <Table className={classes.table}>
-        <TableBody>
-          {builds.map((build, i) => (
-            <BuildRow
-              key={build.id}
-              build={build}
-              selected={selectedBuildId === build.id}
-              setSelectedBuildId={setSelectedBuildId}
-            />
-          ))}
-        </TableBody>
-      </Table>
+      <div style={{}}>
+        <div style={{ display: 'flex', padding: '10px', background: '#80808029', color: 'grey' }}>
+          <div style={{ width: '317px' }}>Status</div>
+          <div style={{ width: '333px' }}>Repository</div>
+          <div style={{ width: '100%' }}>Commit</div>
+          <div style={{ width: '100px' }}>Branch</div>
+          <div style={{ width: '' }}>Duration</div>
+        </div>
+        {builds.map((build, i) => (
+          <BuildRow
+            key={build.id}
+            build={build}
+            selected={selectedBuildId === build.id}
+            setSelectedBuildId={setSelectedBuildId}
+          />
+        ))}
+      </div>
     </ThemeProvider>
-  );
-});
-
-interface HeadRowProps extends WithStyles<typeof styles> {}
-
-const HeadRow = styled(({ classes }: HeadRowProps) => {
-  const durationTooltipText = (
-    <>
-      Clock duration reflects elapsed time between creation of all tasks for a particular build and completion of the
-      last one of them. Clock duration can be impacted by resource availability, scheduling delays, parallelism
-      constraints and other factors that affect execution of tasks.
-    </>
-  );
-
-  return (
-    <TableRow>
-      <TableCell className={cx(classes.cell, classes.cellStatus)}>Status</TableCell>
-      <TableCell className={cx(classes.cell, classes.cellRepository)}>Repository</TableCell>
-      <TableCell className={cx(classes.cell, classes.cellCommit)}>Commit</TableCell>
-      <TableCell className={cx(classes.cell, classes.cellBranch)}>Branch</TableCell>
-      <TableCell className={cx(classes.cell, classes.cellDuration)}>
-        <Stack direction="row" alignItems="center" justifyContent="end" spacing={0.5}>
-          <Tooltip title={durationTooltipText}>
-            <InfoIcon className={classes.infoIcon} fontSize="inherit" />
-          </Tooltip>
-          <span>Duration</span>
-        </Stack>
-      </TableCell>
-    </TableRow>
   );
 });
 
@@ -224,7 +201,7 @@ const BuildRow = styled(
     }
 
     return (
-      <TableRow
+      <div
         className={classes.row}
         {...rowProps}
         onClick={e => {
@@ -234,11 +211,11 @@ const BuildRow = styled(
         }}
       >
         {/* STATUS */}
-        <TableCell className={cx(classes.cell, classes.cellStatus, classes.cellStatusChip)}>
+        <div style={{ maxWidth: '100px' }} className={cx(classes.cell, classes.cellStatus, classes.cellStatusChip)}>
           <BuildStatusChipNew status={build.status} />
-        </TableCell>
+        </div>
         {/* REPOSITORY */}
-        <TableCell className={cx(classes.cell, classes.cellRepository)}>
+        <div style={{ width: '100px' }} className={cx(classes.cell, classes.cellRepository)}>
           <Chip
             label={`${build.repository.name}`}
             variant="filled"
@@ -267,9 +244,9 @@ const BuildRow = styled(
           <Typography noWrap color={theme.palette.text.secondary} title={build.repository.owner}>
             by {build.repository.owner}
           </Typography> */}
-        </TableCell>
+        </div>
         {/* COMMIT */}
-        <TableCell className={cx(classes.cell, classes.cellCommit)}>
+        <div style={{ width: '100%' }} className={cx(classes.cell, classes.cellCommit)}>
           <Typography className={classes.commitName} title={build.changeMessageTitle}>
             {build.changeMessageTitle}
           </Typography>
@@ -297,9 +274,9 @@ const BuildRow = styled(
             <CommitIcon fontSize="inherit" />
             <span>{build.changeIdInRepo.substr(0, 7)}</span>
           </Stack> */}
-        </TableCell>
+        </div>
         {/* BRANCH */}
-        <TableCell className={cx(classes.cell, classes.cellBranch)}>
+        <div style={{ width: '100px' }} className={cx(classes.cell, classes.cellBranch)}>
           <Chip
             label={shorten(build.branch)}
             variant="filled"
@@ -330,12 +307,12 @@ const BuildRow = styled(
               {shorten(build.branch)}
             </Link>
           </Stack> */}
-        </TableCell>
+        </div>
         {/* DURATION */}
-        <TableCell className={cx(classes.cell, classes.cellDuration)}>
+        <div className={cx(classes.cell, classes.cellDuration)}>
           {build.clockDurationInSeconds ? formatDuration(build.clockDurationInSeconds) : '—'}
-        </TableCell>
-      </TableRow>
+        </div>
+      </div>
     );
   }),
 );

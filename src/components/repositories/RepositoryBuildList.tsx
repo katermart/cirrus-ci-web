@@ -37,7 +37,7 @@ import BuildDurationsChart from '../builds/BuildDurationsChart';
 import BuildBranchNameChip from '../chips/BuildBranchNameChip';
 import BuildChangeChip from '../chips/BuildChangeChip';
 import MarkdownTypography from '../common/MarkdownTypography';
-import BuildsTable from '../../components/builds/BuildsTable';
+import BuildsTable from '../../components/builds/BuildsTableCopy';
 
 import { RepositoryBuildList_repository } from './__generated__/RepositoryBuildList_repository.graphql';
 
@@ -229,7 +229,7 @@ function RepositoryBuildList(props: Props) {
       {buildsChart}
 
       {/* BUILDS TABLE */}
-      <Paper className={cx(classes.paper, classes.paperBuildsTable)}>
+      <div className={cx(classes.paper, classes.paperBuildsTable)}>
         <Toolbar className={classes.header} disableGutters>
           <Stack direction="row" alignItems="center">
             <Typography variant="h5" color="inherit">
@@ -250,7 +250,7 @@ function RepositoryBuildList(props: Props) {
             <TableBody>{builds.map(build => buildItem(build))}</TableBody>
           </Table>
         )}
-      </Paper>
+      </div>
       {openCreateDialog && (
         <CreateBuildDialog repository={repository} open={openCreateDialog} onClose={() => setOpenCreateDialog(false)} />
       )}
