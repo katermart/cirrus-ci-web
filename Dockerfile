@@ -1,4 +1,4 @@
-FROM node:current as builder
+FROM node:current@sha256:d903b23148dccca63152cb2bdf6fdfa062842dcce49f0d45558ca06a8ab14598 as builder
 
 ARG CIRRUS_CHANGE_IN_REPO
 ARG SENTRY_DSN
