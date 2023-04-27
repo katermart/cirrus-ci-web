@@ -1,4 +1,4 @@
-FROM node:current as builder
+FROM node:current@sha256:d903b23148dccca63152cb2bdf6fdfa062842dcce49f0d45558ca06a8ab14598 as builder
 
 ARG CIRRUS_CHANGE_IN_REPO
 ARG SENTRY_DSN
@@ -19,7 +19,7 @@ ENV REACT_APP_SENTRY_DSN=$SENTRY_DSN
 ADD . /tmp/cirrus-ci-web/
 RUN yarn bootstrap && yarn build && rm -rf build/service-worker.js
 
-FROM node:current-alpine
+FROM node:current-alpine@sha256:667dc6ed8fc6623ccd21cb5fa355c90f848daaf5d6df96bc940869bfdf91c19a
 
 WORKDIR /svc/cirrus-ci-web
 EXPOSE 8080
